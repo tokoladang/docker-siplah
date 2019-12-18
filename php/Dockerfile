@@ -2,6 +2,9 @@ FROM php:7.4-fpm-alpine3.10
 
 RUN apk add --no-cache \
     nginx \
+    libzip \
+    postgresql-libs \
+    unzip \
     supervisor
 
 # Install dependencies
@@ -9,20 +12,12 @@ RUN set -ex; \
     \
     apk add --no-cache --virtual .build-deps \
         bzip2-dev \
-        freetype-dev \
-        libjpeg-turbo-dev \
-        libpng-dev \
-        libwebp-dev \
-        libxpm-dev \
         libzip-dev \
-        postgresql-libs \
         postgresql-dev \
-        unzip \
         zlib-dev \
     ; \
     \
-    docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp --with-xpm; \
-    docker-php-ext-install bz2 gd opcache zip bcmath pdo pgsql pdo_pgsql mysqli pdo_mysql; \
+    docker-php-ext-install bz2 opcache zip bcmath pdo_pgsql pdo_mysql; \
     apk del .build-deps
 
 RUN addgroup -g 1000 -S siplah && \
@@ -34,6 +29,8 @@ COPY etc /etc
 
 COPY run.sh /run.sh
 RUN chmod u+rwx /run.sh
+
+COPY --chown=siplah:siplah index.php /home/siplah/web/public/index.php
 
 WORKDIR /home/siplah/web
 
