@@ -21,18 +21,9 @@ RUN set -ex; \
         zlib-dev \
     ; \
     \
-    docker-php-ext-configure gd --with-freetype-dir=/usr --with-jpeg-dir=/usr --with-webp-dir=/usr --with-png-dir=/usr --with-xpm-dir=/usr; \
+    docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp --with-xpm; \
     docker-php-ext-install bz2 gd opcache zip bcmath pdo pgsql pdo_pgsql mysqli pdo_mysql; \
-    \
-    runDeps="$( \
-        scanelf --needed --nobanner --format '%n#p' --recursive /usr/local/lib/php/extensions \
-            | tr ',' '\n' \
-            | sort -u \
-            | awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
-    )"; \
-    apk add --virtual .phpmyadmin-phpexts-rundeps $runDeps; \
-    apk del .build-deps && \
-    apk del postgresql-dev
+    apk del .build-deps
 
 RUN addgroup -g 1000 -S siplah && \
     adduser -s /bin/sh -D -u 1000 -S siplah -G siplah && \
