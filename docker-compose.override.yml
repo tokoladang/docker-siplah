@@ -1,0 +1,39 @@
+version: "3"
+
+services:
+
+  api:
+    image: tokoladang/siplah:php0.1
+    volumes:
+      - ${API_SRC}:/home/siplah/web
+    ports:
+      - ${API_PORT}:80
+    depends_on:
+      - db
+      - cache
+
+  admin:
+    image: tokoladang/siplah:laravel0.1
+    volumes:
+      - ${ADMIN_SRC}:/home/siplah/web
+    ports:
+      - ${ADMIN_PORT}:80
+    depends_on:
+      - db
+      - cache
+
+  app:
+    image: node:12-alpine
+    user: "node"
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ${APP_SRC}:/home/node/app
+    expose:
+      - "4200"
+    command: "npm start"
+    ports:
+      - ${APP_PORT}:4200
+    depends_on:
+      - api

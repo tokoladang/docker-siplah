@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+
+  db:
+    image: postgres:12-alpine
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - db:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer
+    ports:
+      - ${ADMINER_PORT}:8080
+    depends_on:
+      - db
+    
+  cache:
+    image: redis:alpine
+    volumes:
+      - cache:/data
+
+  cacheadmin:
+    image: erikdubbelboer/phpredisadmin
+    environment:
+      - ADMIN_USER=${REDIS_ADMIN_USER}
+      - ADMIN_PASS=${REDIS_ADMIN_PASS}
+      - REDIS_1_HOST=cache
+      - REDIS_1_PORT=6379
+    ports:
+      - ${REDIS_ADMIN_PORT}:80
+    depends_on:
+      - cache
+
+volumes:
+  app:
+  cache:
+  db:
+  dbadmin:

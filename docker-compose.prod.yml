@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+
+  app:
+    image: ${APP_REGISTRY}
+    volumes:
+      - app:/home/laravel/web/storage
+      - ./.env:/home/laravel/web/.env
+      - ./etc/nginx/certs:/etc/nginx/certs
+      - ./etc/nginx/sites-available:/etc/nginx/sites-available
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - db
+      - cache
+    networks:
+      - backend
+      - frontend
+
+  db:
+    restart: always
+
+  adminer:
+    restart: always
+    
+  cache:
+    restart: always
+
+  cacheadmin:
+    restart: always
