@@ -1,3 +1,3 @@
-FROM tokoladang/siplah:php0.1
+FROM tokoladang/siplah:php0.2
 
 COPY etc /etc
