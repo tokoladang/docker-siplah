@@ -2,6 +2,13 @@ version: "3"
 
 services:
 
+  res:
+    image: tokoladang/siplah:symfony0.3
+    volumes:
+      - ${RES_SRC}:/home/siplah/web
+    ports:
+      - ${RES_PORT}:80
+
   api:
     image: tokoladang/siplah:symfony0.3
     volumes:
@@ -11,6 +18,7 @@ services:
     depends_on:
       - db
       - cache
+      - res
 
   admin:
     image: tokoladang/siplah:laravel0.2
@@ -59,7 +67,10 @@ services:
 
   db:
     volumes:
-      - db:/var/lib/postgresql/data
       - ./database:/initdb
     ports:
       - ${DB_PORT}:5432
+
+  cache:
+    ports:
+      - ${REDIS_PORT}:6379
