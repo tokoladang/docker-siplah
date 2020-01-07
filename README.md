@@ -1,10 +1,10 @@
 # siplah-docker
 Docker Image untuk Siplah Toko Ladang
 
-# Docker Compose
+# Docker Compose Development
 - copy `.env.example` menjadi `.env`.
 - sesuaikan environment.
-- jalankan docker composer dengan perintah `docker-compose up -d`.
+- jalankan docker composer dengan perintah `docker-compose up -d --build`.
 
 # restore database
 - copy seluruh file dari project api folder `data` ke dalam folder `database`.
