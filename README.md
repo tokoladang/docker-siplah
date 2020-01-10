@@ -1,2 +1,3 @@
-# siplah-docker
-Docker Base Image untuk Siplah Toko Ladang
+# Docker PHP Image Siplah Tokoladang
+
+- opcache.enable=0
