@@ -22,17 +22,17 @@ RUN set -ex; \
 
 RUN addgroup -g 1000 -S siplah && \
     adduser -s /bin/sh -D -u 1000 -S siplah -G siplah && \
-    mkdir /home/siplah/web && \
-    chown siplah:siplah /home/siplah/web
+    mkdir /home/siplah/app && \
+    chown siplah:siplah /home/siplah/app
 
 COPY etc /etc
 
 COPY run.sh /run.sh
 RUN chmod u+rwx /run.sh
 
-COPY --chown=siplah:siplah index.php /home/siplah/web/public/index.php
+COPY --chown=siplah:siplah index.php /home/siplah/app/public/index.php
 
-WORKDIR /home/siplah/web
+WORKDIR /home/siplah/app
 
 EXPOSE 443 80
 
