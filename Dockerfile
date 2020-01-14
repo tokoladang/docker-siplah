@@ -3,6 +3,7 @@ FROM php:7.4-fpm-alpine3.10
 RUN apk add --no-cache \
     nginx \
     libzip \
+    libpng \
     postgresql-libs \
     unzip \
     supervisor
