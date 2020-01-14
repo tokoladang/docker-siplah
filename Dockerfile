@@ -14,6 +14,7 @@ RUN set -ex; \
         bzip2-dev \
         freetype-dev \
         libjpeg-turbo-dev \
+        libpng-dev \
         libwebp-dev \
         libxpm-dev \
         libzip-dev \
