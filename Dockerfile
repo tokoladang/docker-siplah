@@ -20,6 +20,8 @@ RUN set -ex; \
     docker-php-ext-install bz2 opcache zip bcmath pdo_pgsql pdo_mysql; \
     apk del .build-deps
 
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+
 RUN addgroup -g 1000 -S siplah && \
     adduser -s /bin/sh -D -u 1000 -S siplah -G siplah && \
     mkdir /home/siplah/app && \
