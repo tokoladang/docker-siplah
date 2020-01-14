@@ -4,6 +4,10 @@ RUN apk add --no-cache \
     nginx \
     libzip \
     libpng \
+    libwebp \
+    libjpeg-turbo \
+    libxpm \
+    freetype \
     postgresql-libs \
     unzip \
     supervisor
