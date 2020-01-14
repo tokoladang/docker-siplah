@@ -1,3 +1,0 @@
-FROM tokoladang/siplah:symfony0.3
-
-COPY default-dev.conf /etc/nginx/sites-available/default.conf
