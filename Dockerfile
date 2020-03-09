@@ -41,6 +41,9 @@ RUN EXPECTED_COMPOSER_SIGNATURE=$(wget -q -O - https://composer.github.io/instal
     mkdir /home/siplah/app && \
     chown siplah:siplah /home/siplah/app
 
+RUN pecl install redis-5.2.0 \
+    && docker-php-ext-enable redis
+
 COPY etc /etc
 
 COPY run.sh /run.sh
