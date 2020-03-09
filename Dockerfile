@@ -28,7 +28,7 @@ RUN set -ex; \
     ; \
     \
     docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp --with-xpm; \
-    docker-php-ext-install bz2 gd opcache zip bcmath pdo_pgsql pdo_mysql; \
+    docker-php-ext-install bz2 gd opcache zip bcmath pdo_pgsql; \
     apk del .build-deps
 
 RUN EXPECTED_COMPOSER_SIGNATURE=$(wget -q -O - https://composer.github.io/installer.sig) && \
