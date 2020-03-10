@@ -16,6 +16,7 @@ RUN apk add --no-cache \
 RUN set -ex; \
     \
     apk add --no-cache --virtual .build-deps \
+        $PHPIZE_DEPS \
         bzip2-dev \
         freetype-dev \
         libjpeg-turbo-dev \
@@ -29,6 +30,8 @@ RUN set -ex; \
     \
     docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp --with-xpm; \
     docker-php-ext-install bz2 gd opcache zip bcmath pdo_pgsql; \
+    pecl install redis-5.2.0; \
+    docker-php-ext-enable redis; \
     apk del .build-deps
 
 RUN EXPECTED_COMPOSER_SIGNATURE=$(wget -q -O - https://composer.github.io/installer.sig) && \
@@ -41,8 +44,6 @@ RUN EXPECTED_COMPOSER_SIGNATURE=$(wget -q -O - https://composer.github.io/instal
     mkdir /home/siplah/app && \
     chown siplah:siplah /home/siplah/app
 
-RUN pecl install redis-5.2.0 \
-    && docker-php-ext-enable redis
 
 COPY etc /etc
 
